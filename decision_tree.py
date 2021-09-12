@@ -17,7 +17,7 @@ X = []
 Y = []
 
 #reading the data in a csv file
-with open('contact_lens.csv', 'r') as csvfile:
+with open('.\data\contact_lens.csv', 'r') as csvfile:
   reader = csv.reader(csvfile)
   for i, row in enumerate(reader):
       if i > 0: #skipping the header
@@ -26,11 +26,26 @@ with open('contact_lens.csv', 'r') as csvfile:
 
 #transform the original training features to numbers and add to the 4D array X. For instance Young = 1, Prepresbyopic = 2, Presbyopic = 3, so X = [[1, 1, 1, 1], [2, 2, 2, 2], ...]]
 #--> add your Python code here
-# X =
 
 #transform the original training classes to numbers and add to the vector Y. For instance Yes = 1, No = 2, so Y = [1, 1, 2, 2, ...]
 #--> addd your Python code here
+
+values = {
+  "Young":1, "Prepresbyopic":2, "Presbyopic":3,
+  "Myope":1, "Hypermetrope":2,
+  "No":1, "Yes":2,
+  "Reduced":1, "Normal":2
+}
+
+# X =
 # Y =
+
+for row in db:
+  new_row = []
+  for value in row:
+    new_row.append(values[value])
+  X.append(new_row[:4])
+  Y.append(new_row[4])
 
 #fitting the decision tree to the data
 clf = tree.DecisionTreeClassifier(criterion = 'entropy')
